@@ -33,6 +33,7 @@ void Enemy::chase(sf::Vector2f playerPos) {
     float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
 
     if (distance > 0) {
+        
         direction /= distance;
         position += direction * 2.0f;
     }
