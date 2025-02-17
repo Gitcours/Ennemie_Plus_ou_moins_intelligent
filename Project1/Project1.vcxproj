@@ -136,7 +136,9 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Outils.cpp" />
+    <ClCompile Include="Pathfinding.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +147,7 @@
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Outils.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Pathfinding.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
