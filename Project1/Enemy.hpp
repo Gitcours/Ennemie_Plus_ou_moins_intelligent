@@ -5,8 +5,9 @@
 
 class Enemy : public Entity {
 public:
-    static constexpr float SPEED = 100.0f;
-    Enemy(float x, float y);
+    static float SPEED;
+    static float RANGE;
+    Enemy(float Spawnx, float Spawny);
     void update(float deltaTime, Grid& grid) override;
 };
 
