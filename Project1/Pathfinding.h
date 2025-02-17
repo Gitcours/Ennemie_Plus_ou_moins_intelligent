@@ -1,7 +1,7 @@
 #ifndef PATHFINDING_H
 #define PATHFINDING_H
 
-#include "Grid.hpp"
+#include "Grid.h"
 #include "Node.h"
 #include <vector>
 

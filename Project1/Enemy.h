@@ -8,7 +8,7 @@ class Enemy : public Entity {
 public:
     static float SPEED;
     static float RANGE;
-    Enemy(float Spawnx, float Spawny, Vector2f startPos, float radius);
+    Enemy(float Spawnx, float Spawny, float radius);
     void update(float deltaTime, Grid& grid) override;
     void patrol();
     sf::Vector2f position;

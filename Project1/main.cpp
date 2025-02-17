@@ -15,7 +15,7 @@ int main() {
     window.setFramerateLimit(60);
 
     Player player(200, 400);
-    std::vector<Enemy> enemies = { Enemy(500, 500) };
+    std::vector<Enemy> enemies = { Enemy(500, 500, 300) };
     Grid grid;
     grid.loadFromFile("map.txt");
 

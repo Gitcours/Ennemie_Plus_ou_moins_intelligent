@@ -1,8 +1,8 @@
 #include "Enemy.h"
 #include <cmath>
 
-Enemy::Enemy(float Spawnx, float Spawny , Vector2f startPos, float radius) : Entity(Spawnx, Spawny, sf::Color::Green ) {
-    position = startPos;
+Enemy::Enemy(float Spawnx, float Spawny, float radius) : Entity(Spawnx, Spawny, sf::Color::Green ) {
+    position = sf::Vector2f(Spawnx, Spawny);
     detectionRadius = radius;
 }
 
