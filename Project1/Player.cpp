@@ -1,5 +1,5 @@
 // player.cpp
-#include "Player.hpp"
+#include "Player.h"
 #include <SFML/Window/Keyboard.hpp>
 
 Player::Player(float x, float y) : Entity(x, y, sf::Color::Blue) {}

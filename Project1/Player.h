@@ -1,7 +1,6 @@
-#ifndef PLAYER_HPP
-#define PLAYER_HPP
+#pragma once
 
-#include "Entity.hpp"
+#include "Entity.h"
 
 class Player : public Entity {
 public:
@@ -9,5 +8,3 @@ public:
     Player(float x, float y);
     void update(float deltaTime, Grid& grid) override;
 };
-
-#endif // PLAYER_HPP

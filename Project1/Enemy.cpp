@@ -1,4 +1,4 @@
-#include "Enemy.hpp"
+#include "Enemy.h"
 #include <cmath>
 
 Enemy::Enemy(float Spawnx, float Spawny) : Entity(Spawnx, Spawny, sf::Color::Red) {}

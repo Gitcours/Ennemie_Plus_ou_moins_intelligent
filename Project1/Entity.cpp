@@ -1,4 +1,4 @@
-#include "Entity.hpp"
+#include "Entity.h"
 
 Entity::Entity(float x, float y, sf::Color color) {
     shape.setSize({ 35, 35 });

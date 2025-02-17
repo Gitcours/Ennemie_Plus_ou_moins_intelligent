@@ -1,8 +1,10 @@
 #include <SFML/Graphics.hpp>
-#include "Player.hpp"
-#include "Enemy.hpp"
-#include "Grid.hpp"
+#include "Player.h"
+#include "Enemy.h"
+#include "Grid.h"
+#include "Outils.h"
 #include <vector>
+#include <iostream>
 
 
 const int WINDOW_WIDTH = 1980;
@@ -13,7 +15,7 @@ int main() {
     window.setFramerateLimit(60);
 
     Player player(200, 400);
-    std::vector<Enemy> enemies = { Enemy(100, 100) };
+    std::vector<Enemy> enemies = { Enemy(500, 500) };
     Grid grid;
     grid.loadFromFile("map.txt");
 
@@ -37,10 +39,10 @@ int main() {
         window.clear();
         grid.draw(window);
         window.draw(player.shape);
-        for (const auto& enemy : enemies)
+        for (auto& enemy : enemies) {
             window.draw(enemy.shape);
+        }
         window.display();
     }
     return 0;
 }
-

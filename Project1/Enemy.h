@@ -1,7 +1,6 @@
-#ifndef ENEMY_HPP
-#define ENEMY_HPP
+#pragma once
 
-#include "Entity.hpp"
+#include "Entity.h"
 
 class Enemy : public Entity {
 public:
@@ -10,5 +9,3 @@ public:
     Enemy(float Spawnx, float Spawny);
     void update(float deltaTime, Grid& grid) override;
 };
-
-#endif // ENEMY_HPP

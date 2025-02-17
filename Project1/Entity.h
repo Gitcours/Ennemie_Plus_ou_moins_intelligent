@@ -1,8 +1,7 @@
-#ifndef ENTITY_HPP
-#define ENTITY_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
-#include "Grid.hpp"
+#include "Grid.h"
 
 class Entity {
 public:
@@ -12,5 +11,3 @@ public:
     Entity(float x, float y, sf::Color color);
     virtual void update(float deltaTime, Grid& grid) = 0;
 };
-
-#endif // ENTITY_HPP

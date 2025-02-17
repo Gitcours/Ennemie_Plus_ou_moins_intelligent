@@ -1,5 +1,4 @@
-#ifndef GRID_HPP
-#define GRID_HPP
+#pragma once
 
 #include <vector>
 #include <SFML/Graphics.hpp>
@@ -20,9 +19,6 @@ public:
     Grid();
     void loadFromFile(const std::string& filename);
     void draw(sf::RenderWindow& window);
-    Cell& getCell(int x, int y);
-private:
     std::vector<std::vector<Cell>> cells;
-};
-
-#endif      
+    Cell& getCell(int x, int y);
+};  
