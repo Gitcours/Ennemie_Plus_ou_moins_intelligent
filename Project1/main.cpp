@@ -3,6 +3,7 @@
 #include "Enemy.hpp"
 #include "Grid.hpp"
 #include <vector>
+#include <iostream>
 
 
 const int WINDOW_WIDTH = 1980;
@@ -13,7 +14,7 @@ int main() {
     window.setFramerateLimit(60);
 
     Player player(200, 400);
-    std::vector<Enemy> enemies = { Enemy(100, 100)};
+    std::vector<Enemy> enemies = { Enemy(100.0f, 100.0f,Vector2f(100, 100), 300.0f) };
     Grid grid;
     grid.loadFromFile("map.txt");
 
@@ -32,6 +33,15 @@ int main() {
         player.update(deltaTime, grid);
         for (auto& enemy : enemies) {
             enemy.update(deltaTime, grid);
+            if (enemy.detectPlayer(player.shape.getPosition())) {
+                enemy.shape.setFillColor(sf::Color::Red);
+                enemy.chase(player.shape.getPosition());
+            }
+            else {
+                enemy.patrol();
+                enemy.shape.setFillColor(sf::Color::Green);
+            }
+         
         }
 
         window.clear();
