@@ -35,7 +35,9 @@ int main() {
             enemy.update(deltaTime, grid);
             if (enemy.detectPlayer(player.shape.getPosition())) {
                 enemy.shape.setFillColor(sf::Color::Red);
+
                 enemy.chase(player.shape.getPosition());
+
             }
             else {
                 enemy.patrol();
