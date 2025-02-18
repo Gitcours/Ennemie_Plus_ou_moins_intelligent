@@ -36,23 +36,27 @@ int main() {
             enemy.update(deltaTime, grid);
             if (enemy.detectPlayer(player.shape.getPosition())) {
                 enemy.shape.setFillColor(sf::Color::Red);
-
-                enemy.chase(player.shape.getPosition());
+                if (Raycast(Getcenter(enemy.shape), Getcenter(player.shape), 300, grid) == 1) {
+                    enemy.chase(player.shape.getPosition());
+                }
+                else if (Raycast(Getcenter(enemy.shape), Getcenter(player.shape), 300, grid) == 2) {
+                    enemy.shape.setFillColor(sf::Color::Green);
+                    enemy.patrol();
+                }
+               
 
             }
             else {
                 enemy.patrol();
                 enemy.shape.setFillColor(sf::Color::Green);
             }
-         
         }
-
         window.clear();
         grid.draw(window);
         window.draw(player.shape);
         
         for (auto& enemy : enemies) {
-            std::cout << Raycast(Getcenter(enemy.shape), Getcenter(player.shape), 500, grid) << std::endl;
+            std::cout << Raycast(Getcenter(enemy.shape), Getcenter(player.shape), 300, grid) << std::endl;
             window.draw(enemy.shape);
         }
         window.display();
