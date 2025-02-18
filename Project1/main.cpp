@@ -46,8 +46,6 @@ int main() {
                     enemy->getShape().setFillColor(sf::Color::Green);
                     enemy->IdleBehavior();
                 }
-               
-
             }
             else {
                 enemy->IdleBehavior();
