@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
-#include "Enemy.h"
+#include "Guard.h"
 #include "Grid.h"
 #include "Outils.h"
 #include <vector>
@@ -15,7 +15,10 @@ int main() {
     window.setFramerateLimit(60);
 
     Player player(200, 400);
-    std::vector<Enemy> enemies = { Enemy(500, 500, 300) };
+
+    std::vector<std::unique_ptr<Enemy>> enemies;
+    enemies.push_back(std::make_unique<Guard>(500, 500, 300));
+
     Grid grid;
     grid.loadFromFile("map.txt");
 
@@ -47,17 +50,17 @@ int main() {
 
             }
             else {
-                enemy.patrol();
-                enemy.shape.setFillColor(sf::Color::Green);
+                enemy->IdleBehavior();
+                enemy->Setcolor(sf::Color::Green);
             }
         }
         window.clear();
         grid.draw(window);
-        window.draw(player.shape);
+        player.Draw(window);
         
         for (auto& enemy : enemies) {
-            std::cout << Raycast(Getcenter(enemy.shape), Getcenter(player.shape), 300, grid) << std::endl;
-            window.draw(enemy.shape);
+            std::cout << ShapeCanPass(enemy->getShape(), player.getShape(), 300, grid) << "\n";
+            enemy->Draw(window);
         }
         window.display();
     }

@@ -2,18 +2,20 @@
 
 #include "Entity.h"
 
-using namespace sf;
-
 class Enemy : public Entity {
-private :
+
+protected:
     sf::Vector2f position;
     float detectionRadius;
-    static float SPEED;
-    static float RANGE;
+
 public:
     Enemy(float Spawnx, float Spawny, float radius);
-    void update(float deltaTime, Grid& grid) override;
-    void patrol();
-    void chase(sf::Vector2f playerPos);
+
     bool detectPlayer(sf::Vector2f playerPos);
+
+    void Setcolor(sf::Color color);
+
+    virtual void PlayerDetectedBehavior(sf::Vector2f playerPos) = 0;
+
+    virtual void IdleBehavior() = 0;
 };

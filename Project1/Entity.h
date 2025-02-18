@@ -4,10 +4,16 @@
 #include "Grid.h"
 
 class Entity {
-public:
+protected:
     sf::RectangleShape shape;
     sf::Vector2f velocity;
 
+public:
+
     Entity(float x, float y, sf::Color color);
+
+    void Draw(sf::RenderWindow& window);
     virtual void update(float deltaTime, Grid& grid) = 0;
+
+    sf::Shape& getShape() { return shape; }
 };

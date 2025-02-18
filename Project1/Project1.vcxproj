@@ -135,6 +135,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Guard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Outils.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="Guard.h" />
     <ClInclude Include="Outils.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Pathfinding.h" />

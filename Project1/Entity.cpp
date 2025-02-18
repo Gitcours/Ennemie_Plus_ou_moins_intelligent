@@ -5,3 +5,7 @@ Entity::Entity(float x, float y, sf::Color color) {
     shape.setPosition(x, y);
     shape.setFillColor(color);
 }
+
+void Entity::Draw(sf::RenderWindow& window) {
+    window.draw(shape);
+}
