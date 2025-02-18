@@ -36,15 +36,15 @@ int main() {
 
         player.update(deltaTime, grid);
         for (auto& enemy : enemies) {
-            enemy.update(deltaTime, grid);
-            if (enemy.detectPlayer(player.shape.getPosition())) {
-                enemy.shape.setFillColor(sf::Color::Red);
-                if (Raycast(Getcenter(enemy.shape), Getcenter(player.shape), 300, grid) == 1) {
-                    enemy.chase(player.shape.getPosition());
+            enemy->update(deltaTime, grid);
+            if (enemy->detectPlayer(player.getShape().getPosition())) {
+                enemy->getShape().setFillColor(sf::Color::Red);
+                if (ShapeCanPass(player.getShape(), enemy->getShape(),300,grid) == true) {
+                    enemy->PlayerDetectedBehavior(player.getShape().getPosition());
                 }
-                else if (Raycast(Getcenter(enemy.shape), Getcenter(player.shape), 300, grid) == 2) {
-                    enemy.shape.setFillColor(sf::Color::Green);
-                    enemy.patrol();
+                else if (ShapeCanPass(player.getShape(), enemy->getShape(), 300, grid) == false) {
+                    enemy->getShape().setFillColor(sf::Color::Green);
+                    enemy->IdleBehavior();
                 }
                
 
