@@ -52,7 +52,7 @@ int main() {
         window.draw(player.shape);
         
         for (auto& enemy : enemies) {
-            std::cout << Raycast(Getcenter(enemy.shape), Getcenter(player.shape), 500, grid) << std::endl;
+            std::cout << ShapeCanPass(enemy.shape, player.shape, 300, grid) << "\n";
             window.draw(enemy.shape);
         }
         window.display();
