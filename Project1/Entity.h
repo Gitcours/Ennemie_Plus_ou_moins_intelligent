@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "Grid.h"
+#include "Outils.h"
+#include "Pathfinding.h"
 
 class Entity {
 protected:

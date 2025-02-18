@@ -14,3 +14,8 @@ bool Enemy::detectPlayer(sf::Vector2f playerPos) {
 void Enemy::Setcolor(sf::Color color) {
 	shape.setFillColor(color);
 }
+
+void Enemy::SetPath(const std::vector<sf::Vector2i>& newPath) {
+    path = newPath;
+    currentPathIndex = 0;
+}
