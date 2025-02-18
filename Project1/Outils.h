@@ -5,4 +5,6 @@
 #include "Player.h"
 #include <iostream>
 
-int performRaycasting(const sf::Shape& baseshape, const sf::Shape& targetshape, float maxdist, Grid& grid); //0 = pas de collision, 1 = collision avec targetshape, 2 = collision avec mur
+int Raycast(const sf::Vector2f& Origin, const sf::Vector2f& Target, float maxdist, Grid& grid, sf::RenderWindow& window); //0 = pas de collision, 1 = collision avec targetshape, 2 = collision avec mur
+
+sf::Vector2f Getcenter(sf::Shape& shape);

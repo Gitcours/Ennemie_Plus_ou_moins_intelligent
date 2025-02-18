@@ -50,7 +50,9 @@ int main() {
         window.clear();
         grid.draw(window);
         window.draw(player.shape);
+        
         for (auto& enemy : enemies) {
+            std::cout << Raycast(Getcenter(enemy.shape), Getcenter(player.shape), 500, grid, window) << std::endl;
             window.draw(enemy.shape);
         }
         window.display();

@@ -1,15 +1,14 @@
 #include "Outils.h"
 
-// Fonction de raycasting
-int performRaycasting(const sf::Shape& baseshape, const sf::Shape& targetshape, float maxdist, Grid& grid) {
+int Raycast(const sf::Vector2f& Origin, const sf::Vector2f& Target, float maxdist, Grid& grid, sf::RenderWindow& window) {
     sf::Vector2f baseCenter = sf::Vector2f(
-        baseshape.getPosition().x + baseshape.getGlobalBounds().width / 2,
-        baseshape.getPosition().y + baseshape.getGlobalBounds().height / 2
+        Origin.x,
+        Origin.y
     );
 
     sf::Vector2f targetCenter = sf::Vector2f(
-        targetshape.getPosition().x + targetshape.getGlobalBounds().width / 2,
-        targetshape.getPosition().y + targetshape.getGlobalBounds().height / 2
+        Target.x,
+        Target.y
     );
 
     sf::Vector2f direction = targetCenter - baseCenter;
@@ -23,10 +22,7 @@ int performRaycasting(const sf::Shape& baseshape, const sf::Shape& targetshape, 
         int gridX = static_cast<int>(currentPos.x / CELL_SIZE);
         int gridY = static_cast<int>(currentPos.y / CELL_SIZE);
 
-        if (gridX < 0 || gridX >= GRID_WIDTH || gridY < 0 || gridY >= GRID_HEIGHT) {
-            break;
-        }
-        if (!grid.getCell(gridX, gridY).walkable) {
+        if (gridX < 0 || gridX >= GRID_WIDTH || gridY < 0 || gridY >= GRID_HEIGHT || !grid.getCell(gridX, gridY).walkable) {
             return 2;
         }
 
@@ -41,4 +37,8 @@ int performRaycasting(const sf::Shape& baseshape, const sf::Shape& targetshape, 
             return 1;
         }
     }
+}
+
+sf::Vector2f Getcenter(sf::Shape& shape) {
+    return sf::Vector2f(shape.getPosition().x + shape.getGlobalBounds().width / 2, shape.getPosition().y + shape.getGlobalBounds().height / 2);
 }
