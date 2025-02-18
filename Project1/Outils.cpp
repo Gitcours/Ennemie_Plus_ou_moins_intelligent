@@ -1,6 +1,6 @@
 #include "Outils.h"
 
-int Raycast(const sf::Vector2f& Origin, const sf::Vector2f& Target, float maxdist, Grid& grid, sf::RenderWindow& window) {
+int Raycast(const sf::Vector2f& Origin, const sf::Vector2f& Target, float maxdist, Grid& grid) {
     sf::Vector2f baseCenter = sf::Vector2f(
         Origin.x,
         Origin.y

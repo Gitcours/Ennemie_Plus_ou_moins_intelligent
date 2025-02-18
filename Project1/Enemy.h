@@ -5,14 +5,15 @@
 using namespace sf;
 
 class Enemy : public Entity {
-public:
+private :
+    sf::Vector2f position;
+    float detectionRadius;
     static float SPEED;
     static float RANGE;
+public:
     Enemy(float Spawnx, float Spawny, float radius);
     void update(float deltaTime, Grid& grid) override;
     void patrol();
-    sf::Vector2f position;
-    float detectionRadius;
     void chase(sf::Vector2f playerPos);
     bool detectPlayer(sf::Vector2f playerPos);
 };
