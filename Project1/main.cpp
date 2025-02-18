@@ -15,6 +15,7 @@ int main() {
     window.setFramerateLimit(60);
 
     Player player(200, 400);
+    sf::Vector2f playerlastposition;
 
     std::vector<std::unique_ptr<Enemy>> enemies;
     enemies.push_back(std::make_unique<Guard>(500, 500, 300));
@@ -25,6 +26,7 @@ int main() {
     sf::Clock clock;
 
     while (window.isOpen()) {
+        window.clear();
         sf::Time dt = clock.restart();
         float deltaTime = dt.asSeconds();
 
@@ -38,28 +40,47 @@ int main() {
         for (auto& enemy : enemies) {
             enemy->update(deltaTime, grid);
             if (enemy->detectPlayer(player.getShape().getPosition())) {
-                enemy->getShape().setFillColor(sf::Color::Red);
-                if (ShapeCanPass(player.getShape(), enemy->getShape(),300,grid) == true) {
+                enemy->Setcolor(sf::Color::Red);
+                if (ShapeCanPass(enemy->getShape(), Getcenter(player.getShape()), grid) == true) {
                     enemy->PlayerDetectedBehavior(player.getShape().getPosition());
+                    playerlastposition = Getcenter(player.getShape());
                 }
-                else if (ShapeCanPass(player.getShape(), enemy->getShape(), 300, grid) == false) {
-                    enemy->getShape().setFillColor(sf::Color::Green);
-                    enemy->IdleBehavior();
+                else
+                {
+                    //std::cout << "no path to player" << std::endl;
                 }
-               
-
+            }
+            else if (playerlastposition != sf::Vector2f(-1, -1)) {
+                enemy->Setcolor(sf::Color::Yellow);
+                if (std::abs(Getcenter(enemy->getShape()).x - playerlastposition.x) < 1 && std::abs(Getcenter(enemy->getShape()).y - playerlastposition.y) < 1)
+                {
+                    std::cout << "Player last position reached." << std::endl;
+                    playerlastposition = sf::Vector2f(-1, -1);
+                }
+                else
+                {
+                    //std::cout << "Going to last pos" << std::endl;
+                    if (ShapeCanPass(enemy->getShape(), playerlastposition, grid) == true)
+                    {
+                        enemy->PlayerDetectedBehavior(sf::Vector2f(playerlastposition.x - player.getShape().getGlobalBounds().width / 2, playerlastposition.y - player.getShape().getGlobalBounds().height / 2));
+                    }
+                    else
+                    {
+                        //std::cout << "no path to last player pos" << std::endl;
+                        playerlastposition = sf::Vector2f(-1, -1);
+                    }
+                }
             }
             else {
                 enemy->IdleBehavior();
                 enemy->Setcolor(sf::Color::Green);
             }
         }
-        window.clear();
+
         grid.draw(window);
         player.Draw(window);
-        
+
         for (auto& enemy : enemies) {
-            std::cout << ShapeCanPass(enemy->getShape(), player.getShape(), 300, grid) << "\n";
             enemy->Draw(window);
         }
         window.display();

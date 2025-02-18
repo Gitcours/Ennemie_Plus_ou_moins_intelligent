@@ -22,7 +22,6 @@ void Guard::IdleBehavior() {
 void Guard::PlayerDetectedBehavior(sf::Vector2f playerPos) {
     sf::Vector2f direction = playerPos - position;
     float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-
     if (distance > 0) {
 
         direction /= distance;
