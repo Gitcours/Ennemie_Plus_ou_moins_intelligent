@@ -50,7 +50,7 @@ int main() {
 
             std::vector<sf::Vector2i> path;
 
-            if (typeid(*entity) == typeid(Enemy))
+            if (typeid(*entity) == typeid(Guard))
             {
                 Enemy* enemy = dynamic_cast<Enemy*>(entity.get());
 
