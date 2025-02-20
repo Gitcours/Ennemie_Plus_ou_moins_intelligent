@@ -13,10 +13,9 @@ public:
 
     Guard(float Spawnx, float Spawny, float radius, int hp, sf::Vector2f PatrolPoint1, sf::Vector2f PatrolPoint2, Grid& grid, Player& player);
 
-    void update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> enemies) override;
-
     void IdleBehavior(Grid& grid, float pathfinderdeltatime) override;
 
     void Showpath(sf::RenderWindow& window) override;
+
     sf::Vector2f GetCurrentWaypointPos() { return sf::Vector2f(Movingpoints[CurrentWaypoint].x * CELL_SIZE, Movingpoints[CurrentWaypoint].y * CELL_SIZE); }
 };

@@ -14,7 +14,6 @@ protected:
     sf::Clock clockpathfinder;
 
 public:
-    void update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> enemies) override;
 
     Enemy(float Spawnx, float Spawny, float radius, int hp);
 

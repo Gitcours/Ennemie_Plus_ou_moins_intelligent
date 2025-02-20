@@ -5,10 +5,6 @@ Enemy::Enemy(float Spawnx, float Spawny, float radius, int hp) : Entity(Spawnx, 
     position = sf::Vector2f(Spawnx, Spawny);
 }
 
-void Enemy::update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> enemies) {
-
-}
-
 bool Enemy::detectPlayer(sf::Vector2f playerPos) {
     float distance = std::sqrt(std::pow(playerPos.x - position.x, 2) + std::pow(playerPos.y - position.y, 2));
     return (distance < detectionRadius);

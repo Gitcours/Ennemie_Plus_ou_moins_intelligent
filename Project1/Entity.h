@@ -16,9 +16,14 @@ public:
     Entity(float x, float y, sf::Color color, int hp);
 
     void Draw(sf::RenderWindow& window);
+
     virtual void update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> neededEntities) = 0;
+
     bool isAlive() const;
+
     void takeDamage(int damage);
+
     sf::Shape& getShape() { return shape; }
+
     int& getHealth() { return health; }
 };

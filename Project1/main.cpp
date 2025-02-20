@@ -31,7 +31,11 @@ int main() {
     sf::Clock clock;
 
     while (window.isOpen()) {
+
         window.clear();
+        grid.draw(window);
+        player.Draw(window);
+
         sf::Time dt = clock.restart();
         float deltaTime = dt.asSeconds();
 
@@ -42,36 +46,37 @@ int main() {
         }
 
         player.update(deltaTime, grid, enemies);
-        for (auto& enemy : enemies) {
+        for (auto& entity : enemies) {
 
             std::vector<sf::Vector2i> path;
 
-            enemy->update(deltaTime, grid);
-            if (enemy->detectPlayer(player.getShape().getPosition())) {
-                enemy->Setcolor(sf::Color::Red);
-                enemy->Goto(player.getShape().getPosition(), grid, 1000);
-                playerlastposition = Getcenter(player.getShape());
-            }
-            else if (playerlastposition != sf::Vector2f(-1, -1)) {
-                enemy->Setcolor(sf::Color::Yellow);
-                if (enemy->Goto(playerlastposition, grid, 1000))
-                {
-                    playerlastposition = sf::Vector2f(-1, -1);
+            if (typeid(*entity) == typeid(Enemy))
+            {
+                Enemy* enemy = dynamic_cast<Enemy*>(entity.get());
+
+                if (enemy->detectPlayer(player.getShape().getPosition())) {
+                    enemy->Setcolor(sf::Color::Red);
+                    enemy->Goto(player.getShape().getPosition(), grid, 1000);
+                    playerlastposition = Getcenter(player.getShape());
                 }
-            }
-            else {
-                enemy->Setcolor(sf::Color::Green);
-                enemy->IdleBehavior(grid, 1000);
-            }
-        }
+                else if (playerlastposition != sf::Vector2f(-1, -1)) {
+                    enemy->Setcolor(sf::Color::Yellow);
+                    if (enemy->Goto(playerlastposition, grid, 1000))
+                    {
+                        playerlastposition = sf::Vector2f(-1, -1);
+                    }
+                }
+                else {
+                    enemy->Setcolor(sf::Color::Green);
+                    enemy->IdleBehavior(grid, 1000);
+                }
 
-        grid.draw(window);
-        player.Draw(window);
-
-        for (auto& enemy : enemies) {
-            if (enemy->isAlive()) {
-                enemy->Draw(window);
-                enemy->Showpath(window);
+                for (auto& enemy : enemies) {
+                    if (enemy->isAlive()) {
+                        enemy->Draw(window);
+                        //enemy->Showpath(window);
+                    }
+                }
             }
         }
         window.display();

@@ -21,9 +21,6 @@ void Guard::IdleBehavior(Grid& grid, float pathfinderdeltatime) {
     }
 }
 
-void Guard::update(float deltaTime, Grid& grid) {
-}
-
 void Guard::Showpath(sf::RenderWindow& window) {
     if (!path.empty())
     {
