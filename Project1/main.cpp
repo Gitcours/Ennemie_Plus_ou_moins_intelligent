@@ -20,7 +20,8 @@ int main() {
     grid.loadFromFile("map.txt");
 
     Player player(200, 400);
-    sf::Vector2f playerlastposition;
+
+    sf::Vector2f playerlastposition = sf::Vector2f(-1, -1);
 
     std::vector<std::unique_ptr<Enemy>> enemies;
     enemies.push_back(std::make_unique<Guard>(500, 500, 300, sf::Vector2f(300, 500), sf::Vector2f(800, 500), grid, player));
@@ -28,6 +29,7 @@ int main() {
     Pathfinding pathfinder;
 
     sf::Clock clock;
+
     while (window.isOpen()) {
         window.clear();
         sf::Time dt = clock.restart();
@@ -41,42 +43,25 @@ int main() {
 
         player.update(deltaTime, grid);
         for (auto& enemy : enemies) {
+
             std::vector<sf::Vector2i> path;
+
             enemy->update(deltaTime, grid);
             if (enemy->detectPlayer(player.getShape().getPosition())) {
                 enemy->Setcolor(sf::Color::Red);
-                if (ShapeCanPass(enemy->getShape(), Getcenter(player.getShape()), grid) == true) {
-                    enemy->Goto(player.getShape().getPosition());
-                    playerlastposition = Getcenter(player.getShape());
-                }
-                else
-                {
-                    std::cout << "no path to player, need to set pathfinding here" << std::endl;
-                }
+                enemy->Goto(player.getShape().getPosition(), grid, 1000);
+                playerlastposition = Getcenter(player.getShape());
             }
             else if (playerlastposition != sf::Vector2f(-1, -1)) {
                 enemy->Setcolor(sf::Color::Yellow);
-                if (std::abs(Getcenter(enemy->getShape()).x - playerlastposition.x) < 1 && std::abs(Getcenter(enemy->getShape()).y - playerlastposition.y) < 1)
+                if (enemy->Goto(playerlastposition, grid, 1000))
                 {
-                    std::cout << "Player last position reached." << std::endl;
                     playerlastposition = sf::Vector2f(-1, -1);
-                }
-                else
-                {
-                    if (ShapeCanPass(enemy->getShape(), playerlastposition, grid) == true)
-                    {
-                        enemy->Goto(sf::Vector2f(playerlastposition.x - player.getShape().getGlobalBounds().width / 2, playerlastposition.y - player.getShape().getGlobalBounds().height / 2));
-                    }
-                    else
-                    {
-                        std::cout << "no path to last player pos, need to set pathfinding here" << std::endl;
-                        playerlastposition = sf::Vector2f(-1, -1);
-                    }
                 }
             }
             else {
                 enemy->Setcolor(sf::Color::Green);
-                enemy->IdleBehavior(grid);
+                enemy->IdleBehavior(grid, 1000);
             }
         }
 
@@ -84,6 +69,7 @@ int main() {
         player.Draw(window);
 
         for (auto& enemy : enemies) {
+            enemy->Showpath(window);
             enemy->Draw(window);
         }
         window.display();

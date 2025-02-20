@@ -15,9 +15,8 @@ public:
 
     void update(float deltaTime, Grid& grid) override;
 
-    void IdleBehavior(Grid& grid) override;
+    void IdleBehavior(Grid& grid, float pathfinderdeltatime) override;
 
-    void Goto(sf::Vector2f playerPos) override;
-
+    void Showpath(sf::RenderWindow& window) override;
     sf::Vector2f GetCurrentWaypointPos() { return sf::Vector2f(Movingpoints[CurrentWaypoint].x * CELL_SIZE, Movingpoints[CurrentWaypoint].y * CELL_SIZE); }
 };
