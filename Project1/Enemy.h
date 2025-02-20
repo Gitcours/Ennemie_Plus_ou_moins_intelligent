@@ -12,7 +12,9 @@ protected:
     size_t currentPathIndex;
 
 public:
-    Enemy(float Spawnx, float Spawny, float radius);
+    void update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> enemies) override;
+
+    Enemy(float Spawnx, float Spawny, float radius, int hp);
 
     bool detectPlayer(sf::Vector2f playerPos);
 

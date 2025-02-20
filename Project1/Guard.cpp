@@ -1,6 +1,6 @@
 #include "Guard.h"
 
-Guard::Guard(float Spawnx, float Spawny, float radius, sf::Vector2f PatrolPoint1, sf::Vector2f PatrolPoint2, Grid& grid, Player& player) : Enemy(Spawnx, Spawny, radius) {
+Guard::Guard(float Spawnx, float Spawny, float radius, int hp, sf::Vector2f PatrolPoint1, sf::Vector2f PatrolPoint2, Grid& grid, Player& player) : Enemy(Spawnx, Spawny, radius, hp) {
     playerRef = &player;
     Movingpoints[0] = sf::Vector2i(PatrolPoint1) / CELL_SIZE;
 	Movingpoints[1] = sf::Vector2i(PatrolPoint2) / CELL_SIZE;
@@ -69,7 +69,7 @@ void Guard::Goto(sf::Vector2f target) {
     shape.setPosition(position);
 }
 
-void Guard::update(float deltaTime, Grid& grid) {
+void Guard::update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> enemies) {
     if (!path.empty() && currentPathIndex < path.size()) {
         sf::Vector2f targetPosition(path[currentPathIndex].x * 40.0f, path[currentPathIndex].y * 40.0f);
         sf::Vector2f direction = targetPosition - shape.getPosition();

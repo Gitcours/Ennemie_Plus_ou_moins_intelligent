@@ -11,9 +11,9 @@ private:
     Player* playerRef;
 public:
 
-    Guard(float Spawnx, float Spawny, float radius, sf::Vector2f PatrolPoint1, sf::Vector2f PatrolPoint2, Grid& grid, Player& player);
+    Guard(float Spawnx, float Spawny, float radius, int hp, sf::Vector2f PatrolPoint1, sf::Vector2f PatrolPoint2, Grid& grid, Player& player);
 
-    void update(float deltaTime, Grid& grid) override;
+    void update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> enemies) override;
 
     void IdleBehavior(Grid& grid) override;
 

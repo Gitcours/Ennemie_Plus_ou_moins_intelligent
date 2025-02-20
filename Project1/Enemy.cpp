@@ -1,9 +1,15 @@
 #include "Enemy.h"
 #include <cmath>
 
-Enemy::Enemy(float Spawnx, float Spawny, float radius) : Entity(Spawnx, Spawny, sf::Color::Green ) {
+
+
+Enemy::Enemy(float Spawnx, float Spawny, float radius, int hp) : Entity(Spawnx, Spawny, sf::Color::Green, hp ) {
     position = sf::Vector2f(Spawnx, Spawny);
     detectionRadius = radius;
+}
+
+void Enemy::update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> enemies) {
+
 }
 
 bool Enemy::detectPlayer(sf::Vector2f playerPos) {
