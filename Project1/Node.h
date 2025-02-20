@@ -1,5 +1,4 @@
-#ifndef NODE_HPP
-#define NODE_HPP
+#pragma once
 
 #include <SFML/System/Vector2.hpp>
 
@@ -13,5 +12,3 @@ public:
     void calculateCosts(sf::Vector2i endPos, int newG);
     int calculateHeuristic(sf::Vector2i endPos);
 };
-
-#endif

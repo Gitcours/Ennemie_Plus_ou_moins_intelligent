@@ -32,3 +32,7 @@ void Guard::Showpath(sf::RenderWindow& window) {
         }
     }
 }
+
+void Guard::update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> neededEntities) {
+
+}

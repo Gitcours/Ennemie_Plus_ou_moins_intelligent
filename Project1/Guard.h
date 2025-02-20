@@ -17,5 +17,7 @@ public:
 
     void Showpath(sf::RenderWindow& window) override;
 
+    void update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> neededEntities) override;
+
     sf::Vector2f GetCurrentWaypointPos() { return sf::Vector2f(Movingpoints[CurrentWaypoint].x * CELL_SIZE, Movingpoints[CurrentWaypoint].y * CELL_SIZE); }
 };

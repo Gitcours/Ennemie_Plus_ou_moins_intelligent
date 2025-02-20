@@ -1,5 +1,4 @@
-#ifndef PATHFINDING_H
-#define PATHFINDING_H
+#pragma once
 
 #include "Grid.h"
 #include "Node.h"
@@ -9,5 +8,3 @@ class Pathfinding {
 public:
     static std::vector<sf::Vector2i> findPath(Grid& grid, sf::Vector2i start, sf::Vector2i end);
 };
-
-#endif

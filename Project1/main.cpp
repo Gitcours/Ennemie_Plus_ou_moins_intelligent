@@ -24,7 +24,7 @@ int main() {
 
     std::vector<std::shared_ptr<Entity>> enemies;
 
-    enemies.push_back(std::make_unique<Guard>(500, 500, 300, 100, sf::Vector2f(300, 500), sf::Vector2f(800, 500), grid, player));
+    enemies.push_back(std::make_shared<Guard>(500, 500, 300, 100, sf::Vector2f(300, 500), sf::Vector2f(800, 500), grid, player));
 
     Pathfinding pathfinder;
 
@@ -71,14 +71,16 @@ int main() {
                     enemy->IdleBehavior(grid, 1000);
                 }
 
-                for (auto& enemy : enemies) {
-                    if (enemy->isAlive()) {
-                        enemy->Draw(window);
-                        //enemy->Showpath(window);
-                    }
-                }
+                enemy->Showpath(window);
             }
         }
+
+        for (auto& enemy : enemies) {
+            if (enemy->isAlive()) {
+                enemy->Draw(window);
+            }
+        }
+
         window.display();
     }
     return 0;
