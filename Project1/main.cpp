@@ -20,11 +20,14 @@ int main() {
     grid.loadFromFile("map.txt");
 
     Player player(200, 400, 10);
-    sf::Vector2f playerlastposition;
+    sf::Vector2f playerlastposition = sf::Vector2f(-1, -1);
 
     std::vector<std::shared_ptr<Entity>> enemies;
 
     enemies.push_back(std::make_shared<Guard>(500, 500, 300, 100, sf::Vector2f(300, 500), sf::Vector2f(800, 500), grid, player));
+    enemies.push_back(std::make_shared<Guard>(500, 500, 300, 100, sf::Vector2f(500, 800), sf::Vector2f(500, 200), grid, player));
+    enemies.push_back(std::make_shared<Guard>(500, 500, 300, 100, sf::Vector2f(1000, 800), sf::Vector2f(200, 800), grid, player));
+    enemies.push_back(std::make_shared<Guard>(500, 500, 300, 100, sf::Vector2f(800, 800), sf::Vector2f(200, 200), grid, player));
 
     Pathfinding pathfinder;
 
@@ -70,7 +73,6 @@ int main() {
                     enemy->Setcolor(sf::Color::Green);
                     enemy->IdleBehavior(grid, 1000);
                 }
-
                 enemy->Showpath(window);
             }
         }
