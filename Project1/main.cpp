@@ -29,6 +29,7 @@ int main() {
     Pathfinding pathfinder;
 
     sf::Clock clock;
+
     while (window.isOpen()) {
         window.clear();
         sf::Time dt = clock.restart();
@@ -42,46 +43,25 @@ int main() {
 
         player.update(deltaTime, grid, enemies);
         for (auto& enemy : enemies) {
+
             std::vector<sf::Vector2i> path;
-            enemy->update(deltaTime, grid,enemies);
-            if (typeid(*enemy) == typeid(Enemy))
-            {
-                Enemy* enemy2 = dynamic_cast<Enemy*>(enemy.get());
-                if (enemy2->detectPlayer(player.getShape().getPosition())) {
-                    enemy2->Setcolor(sf::Color::Red);
-                    if (ShapeCanPass(enemy->getShape(), Getcenter(player.getShape()), grid) == true) {
-                        enemy2->Goto(player.getShape().getPosition());
-                        playerlastposition = Getcenter(player.getShape());
-                    }
-                    else
-                    {
-                        std::cout << "no path to player, need to set pathfinding here" << std::endl;
-                    }
+
+            enemy->update(deltaTime, grid);
+            if (enemy->detectPlayer(player.getShape().getPosition())) {
+                enemy->Setcolor(sf::Color::Red);
+                enemy->Goto(player.getShape().getPosition(), grid, 1000);
+                playerlastposition = Getcenter(player.getShape());
+            }
+            else if (playerlastposition != sf::Vector2f(-1, -1)) {
+                enemy->Setcolor(sf::Color::Yellow);
+                if (enemy->Goto(playerlastposition, grid, 1000))
+                {
+                    playerlastposition = sf::Vector2f(-1, -1);
                 }
-                else if (playerlastposition != sf::Vector2f(-1, -1)) {
-                    enemy2->Setcolor(sf::Color::Yellow);
-                    if (std::abs(Getcenter(enemy->getShape()).x - playerlastposition.x) < 1 && std::abs(Getcenter(enemy->getShape()).y - playerlastposition.y) < 1)
-                    {
-                        std::cout << "Player last position reached." << std::endl;
-                        playerlastposition = sf::Vector2f(-1, -1);
-                    }
-                    else
-                    {
-                        if (ShapeCanPass(enemy->getShape(), playerlastposition, grid) == true)
-                        {
-                            enemy2->Goto(sf::Vector2f(playerlastposition.x - player.getShape().getGlobalBounds().width / 2, playerlastposition.y - player.getShape().getGlobalBounds().height / 2));
-                        }
-                        else
-                        {
-                            std::cout << "no path to last player pos, need to set pathfinding here" << std::endl;
-                            playerlastposition = sf::Vector2f(-1, -1);
-                        }
-                    }
-                }
-                else {
-                    enemy2->Setcolor(sf::Color::Green);
-                    enemy2->IdleBehavior(grid);
-                }
+            }
+            else {
+                enemy->Setcolor(sf::Color::Green);
+                enemy->IdleBehavior(grid, 1000);
             }
         }
 
@@ -89,8 +69,10 @@ int main() {
         player.Draw(window);
 
         for (auto& enemy : enemies) {
-            if(enemy->isAlive())
+            if (enemy->isAlive()) {
                 enemy->Draw(window);
+                enemy->Showpath(window);
+            }
         }
         window.display();
     }

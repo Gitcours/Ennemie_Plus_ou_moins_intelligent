@@ -6,10 +6,12 @@ class Enemy : public Entity {
 
 protected:
     sf::Vector2f position;
+    sf::Vector2f pathfindlastpos;
     float detectionRadius;
     Pathfinding pathfinder;
     std::vector<sf::Vector2i> path;
     size_t currentPathIndex;
+    sf::Clock clockpathfinder;
 
 public:
     void update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> enemies) override;
@@ -20,11 +22,11 @@ public:
 
     void Setcolor(sf::Color color);
 
-    void SetPath(const std::vector<sf::Vector2i>& path);
-
     bool ispathempty() { return path.empty(); };
 
-    virtual void Goto(sf::Vector2f playerPos) = 0;
+    bool Goto(sf::Vector2f target, Grid& grid, float resetpathdeltatime);
 
-    virtual void IdleBehavior(Grid& grid) = 0;
+    virtual void IdleBehavior(Grid& grid, float pathfinderdeltatime) = 0;
+
+    virtual void Showpath(sf::RenderWindow& window) = 0;
 };
