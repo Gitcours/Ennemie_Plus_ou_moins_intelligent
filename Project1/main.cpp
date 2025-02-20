@@ -23,7 +23,7 @@ int main() {
     sf::Vector2f playerlastposition;
 
     std::vector<std::unique_ptr<Enemy>> enemies;
-    enemies.push_back(std::make_unique<Guard>(500, 500, 300, sf::Vector2f(300, 500), sf::Vector2f(800, 500), grid));
+    enemies.push_back(std::make_unique<Guard>(500, 500, 300, sf::Vector2f(300, 500), sf::Vector2f(800, 500), grid, player));
 
     Pathfinding pathfinder;
 
@@ -46,7 +46,7 @@ int main() {
             if (enemy->detectPlayer(player.getShape().getPosition())) {
                 enemy->Setcolor(sf::Color::Red);
                 if (ShapeCanPass(enemy->getShape(), Getcenter(player.getShape()), grid) == true) {
-                    enemy->PlayerDetectedBehavior(player.getShape().getPosition());
+                    enemy->Goto(player.getShape().getPosition());
                     playerlastposition = Getcenter(player.getShape());
                 }
                 else
@@ -65,7 +65,7 @@ int main() {
                 {
                     if (ShapeCanPass(enemy->getShape(), playerlastposition, grid) == true)
                     {
-                        enemy->PlayerDetectedBehavior(sf::Vector2f(playerlastposition.x - player.getShape().getGlobalBounds().width / 2, playerlastposition.y - player.getShape().getGlobalBounds().height / 2));
+                        enemy->Goto(sf::Vector2f(playerlastposition.x - player.getShape().getGlobalBounds().width / 2, playerlastposition.y - player.getShape().getGlobalBounds().height / 2));
                     }
                     else
                     {

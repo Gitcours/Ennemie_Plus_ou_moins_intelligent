@@ -22,7 +22,7 @@ public:
 
     bool ispathempty() { return path.empty(); };
 
-    virtual void PlayerDetectedBehavior(sf::Vector2f playerPos) = 0;
+    virtual void Goto(sf::Vector2f playerPos) = 0;
 
     virtual void IdleBehavior(Grid& grid) = 0;
 };

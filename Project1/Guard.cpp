@@ -1,7 +1,7 @@
 #include "Guard.h"
 
 Guard::Guard(float Spawnx, float Spawny, float radius, sf::Vector2f PatrolPoint1, sf::Vector2f PatrolPoint2, Grid& grid, Player& player) : Enemy(Spawnx, Spawny, radius) {
-    playerRef = player;
+    playerRef = &player;
     Movingpoints[0] = sf::Vector2i(PatrolPoint1) / CELL_SIZE;
 	Movingpoints[1] = sf::Vector2i(PatrolPoint2) / CELL_SIZE;
     CurrentWaypoint = 0;
@@ -36,7 +36,7 @@ void Guard::IdleBehavior(Grid& grid) {
         if (path.empty())
         {
             sf::Vector2i start = sf::Vector2i(Getcenter(shape)) / CELL_SIZE;
-            sf::Vector2i end = sf::Vector2i(Getcenter(playerRef.getShape())) / CELL_SIZE;
+            sf::Vector2i end = sf::Vector2i(Getcenter(playerRef->getShape())) / CELL_SIZE;
             path = pathfinder.findPath(grid, start, end);
         }
         if (!path.empty()) {
@@ -58,8 +58,8 @@ void Guard::IdleBehavior(Grid& grid) {
     }
 }
 
-void Guard::PlayerDetectedBehavior(sf::Vector2f playerPos) {
-    sf::Vector2f direction = playerPos - position;
+void Guard::Goto(sf::Vector2f target) {
+    sf::Vector2f direction = target - position;
     float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
     if (distance > 0) {
 
