@@ -7,6 +7,9 @@ class Enemy : public Entity {
 protected:
     sf::Vector2f position;
     float detectionRadius;
+    Pathfinding pathfinder;
+    std::vector<sf::Vector2i> path;
+    size_t currentPathIndex;
 
 public:
     Enemy(float Spawnx, float Spawny, float radius);
@@ -15,7 +18,11 @@ public:
 
     void Setcolor(sf::Color color);
 
-    virtual void PlayerDetectedBehavior(sf::Vector2f playerPos) = 0;
+    void SetPath(const std::vector<sf::Vector2i>& path);
 
-    virtual void IdleBehavior() = 0;
+    bool ispathempty() { return path.empty(); };
+
+    virtual void Goto(sf::Vector2f playerPos) = 0;
+
+    virtual void IdleBehavior(Grid& grid) = 0;
 };

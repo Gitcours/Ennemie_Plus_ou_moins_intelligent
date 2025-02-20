@@ -1,8 +1,9 @@
 #pragma once
 
-#include <vector>
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include <string>
+#include <iostream>
 
 const int GRID_WIDTH = 49;
 const int GRID_HEIGHT = 27;
