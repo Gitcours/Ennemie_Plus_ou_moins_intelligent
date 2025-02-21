@@ -27,5 +27,5 @@ public:
 
     virtual void IdleBehavior(Grid& grid, float pathfinderdeltatime) = 0;
 
-    virtual void Showpath(sf::RenderWindow& window) = 0;
+    virtual void Showpath(sf::RenderWindow& window, sf::Color couleur) = 0;
 };

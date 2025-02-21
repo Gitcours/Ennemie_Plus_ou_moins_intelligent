@@ -15,7 +15,7 @@ public:
 
     void IdleBehavior(Grid& grid, float pathfinderdeltatime) override;
 
-    void Showpath(sf::RenderWindow& window) override;
+    void Showpath(sf::RenderWindow& window, sf::Color couleur) override;
 
     void update(float deltaTime, Grid& grid, std::vector<std::shared_ptr<Entity>> neededEntities) override;
 

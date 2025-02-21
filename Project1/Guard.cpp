@@ -21,13 +21,13 @@ void Guard::IdleBehavior(Grid& grid, float pathfinderdeltatime) {
     }
 }
 
-void Guard::Showpath(sf::RenderWindow& window) {
+void Guard::Showpath(sf::RenderWindow& window, sf::Color couleur) {
     if (!path.empty())
     {
         for (auto& point : path) {
             sf::RectangleShape cell(sf::Vector2f(CELL_SIZE, CELL_SIZE));
             cell.setPosition(point.x * CELL_SIZE, point.y * CELL_SIZE);
-            cell.setFillColor(sf::Color::Magenta);
+            cell.setFillColor(couleur);
             window.draw(cell);
         }
     }

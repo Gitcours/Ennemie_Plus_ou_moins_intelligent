@@ -19,7 +19,7 @@ int main() {
     Grid grid;
     grid.loadFromFile("map.txt");
 
-    Player player(200, 400, 10);
+    Player player(1000, 500, 10);
     sf::Vector2f playerlastposition = sf::Vector2f(-1, -1);
 
     std::vector<std::shared_ptr<Entity>> enemies;
@@ -28,6 +28,9 @@ int main() {
     enemies.push_back(std::make_shared<Guard>(500, 500, 300, 100, sf::Vector2f(500, 800), sf::Vector2f(500, 200), grid, player));
     enemies.push_back(std::make_shared<Guard>(500, 500, 300, 100, sf::Vector2f(1000, 800), sf::Vector2f(200, 800), grid, player));
     enemies.push_back(std::make_shared<Guard>(500, 500, 300, 100, sf::Vector2f(800, 800), sf::Vector2f(200, 200), grid, player));
+
+    sf::Vector2f randompos(gennbint(0, WINDOW_WIDTH), gennbint(0, WINDOW_HEIGHT));
+    sf::RectangleShape celltemp(sf::Vector2f(CELL_SIZE, CELL_SIZE));
 
     Pathfinding pathfinder;
 
@@ -57,13 +60,33 @@ int main() {
             {
                 Enemy* enemy = dynamic_cast<Enemy*>(entity.get());
 
+                //enemy->Showpath(window, sf::Color::Cyan);
+
                 if (enemy->detectPlayer(player.getShape().getPosition())) {
-                    enemy->Setcolor(sf::Color::Red);
-                    enemy->Goto(player.getShape().getPosition(), grid, 1000);
-                    playerlastposition = Getcenter(player.getShape());
+                    if (enemy->getHealth() > 30)
+                    {
+                        enemy->Setcolor(sf::Color::Red);
+                        enemy->Goto(player.getShape().getPosition(), grid, 1000);
+                        //Shaperaycastshow(enemy->getShape(), Getcenter(player.getShape()), grid, sf::Color::Magenta, window);
+                        playerlastposition = Getcenter(player.getShape());
+                    }
+                    else
+                    {
+                        enemy->Setcolor(sf::Color::White);
+                        while (std::sqrt(std::pow(randompos.x - playerlastposition.x, 2) + std::pow(randompos.y - playerlastposition.y, 2)) < 300 || !grid.getCell(randompos.x / CELL_SIZE, randompos.y / CELL_SIZE).walkable)
+                        {
+                            randompos = sf::Vector2f(gennbint(0, WINDOW_WIDTH), gennbint(0, WINDOW_HEIGHT));
+                            celltemp.setPosition(randompos.x, randompos.y);
+                            celltemp.setFillColor(sf::Color::Magenta);
+                        }
+                        enemy->Goto(randompos, grid, 1000);
+                        //Shaperaycastshow(enemy->getShape(), Getcenter(player.getShape()), grid, sf::Color::Magenta, window);
+                        playerlastposition = Getcenter(player.getShape());
+                    }
                 }
-                else if (playerlastposition != sf::Vector2f(-1, -1)) {
+                else if (playerlastposition != sf::Vector2f(-1, -1) && enemy->getHealth() > 30) {
                     enemy->Setcolor(sf::Color::Yellow);
+                    //Shaperaycastshow(enemy->getShape(), playerlastposition, grid, sf::Color::Magenta, window);
                     if (enemy->Goto(playerlastposition, grid, 1000))
                     {
                         playerlastposition = sf::Vector2f(-1, -1);
@@ -73,7 +96,6 @@ int main() {
                     enemy->Setcolor(sf::Color::Green);
                     enemy->IdleBehavior(grid, 1000);
                 }
-                enemy->Showpath(window);
             }
         }
 
@@ -82,7 +104,7 @@ int main() {
                 enemy->Draw(window);
             }
         }
-
+        //window.draw(celltemp);
         window.display();
     }
     return 0;

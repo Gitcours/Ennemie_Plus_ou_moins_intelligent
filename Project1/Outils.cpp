@@ -9,12 +9,6 @@ int Raycast(const sf::Vector2f& Origin, const sf::Vector2f& Target, Grid& grid) 
     sf::Vector2f currentPos = Origin;
     float traveledDistance = 0.0f;
 
-    /*sf::Vertex line[] =
-    {
-        sf::Vertex(Origin, sf::Color::Red),
-        sf::Vertex(Target, sf::Color::Red)
-    };*/
-
     while (traveledDistance < std::sqrt(std::pow(Target.x - Origin.x, 2) + std::pow(Target.y - Origin.y, 2))) {
         int gridX = static_cast<int>(currentPos.x / CELL_SIZE);
         int gridY = static_cast<int>(currentPos.y / CELL_SIZE);
@@ -23,15 +17,11 @@ int Raycast(const sf::Vector2f& Origin, const sf::Vector2f& Target, Grid& grid) 
             return 2;
         }
 
-        //line[1] = sf::Vertex(currentPos, sf::Color::Red);
-
-
         currentPos += direction;
         traveledDistance += 1.0f;
 
         if (traveledDistance >= std::sqrt(std::pow(Target.x - Origin.x, 2) + std::pow(Target.y - Origin.y, 2)))
         {
-            //window.draw(line, 2, sf::Lines);
             return 1;
         }
     }
@@ -63,4 +53,50 @@ bool ShapeCanPass(sf::Shape& OriginShape, const sf::Vector2f& Target, Grid& grid
     {
         return false;
     }
+}
+
+float gennbint(int nb1, int nb2) {
+    return floor(nb1 + ((rand() / (float)RAND_MAX) * nb2));
+}
+
+void Raycastshow(const sf::Vector2f& Origin, const sf::Vector2f& Target, Grid& grid, sf::Color couleur, sf::RenderWindow& window) {
+
+    sf::Vector2f direction = Target - Origin;
+    float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+    direction /= distance;
+
+    sf::Vector2f currentPos = Origin;
+    float traveledDistance = 0.0f;
+
+    sf::Vertex line[] =
+    {
+        sf::Vertex(Origin, couleur),
+        sf::Vertex(Target, couleur)
+    };
+
+    while (traveledDistance < std::sqrt(std::pow(Target.x - Origin.x, 2) + std::pow(Target.y - Origin.y, 2))) {
+        int gridX = static_cast<int>(currentPos.x / CELL_SIZE);
+        int gridY = static_cast<int>(currentPos.y / CELL_SIZE);
+
+        if (gridX < 0 || gridX >= GRID_WIDTH || gridY < 0 || gridY >= GRID_HEIGHT || !grid.getCell(gridX, gridY).walkable) {
+            break;
+        }
+
+        line[1] = sf::Vertex(currentPos, couleur);
+
+        currentPos += direction;
+        traveledDistance += 1.0f;
+
+        if (traveledDistance >= std::sqrt(std::pow(Target.x - Origin.x, 2) + std::pow(Target.y - Origin.y, 2))) {
+            break;
+        }
+    }
+    window.draw(line, 2, sf::Lines);
+}
+
+void Shaperaycastshow(sf::Shape& OriginShape, const sf::Vector2f& Target, Grid& grid, sf::Color couleur, sf::RenderWindow& window) {
+    Raycastshow(OriginShape.getPosition(), Target, grid, couleur, window);
+    Raycastshow(GetTopRight(OriginShape), Target, grid, couleur, window);
+    Raycastshow(GetBottomLeft(OriginShape), Target, grid, couleur, window);
+    Raycastshow(GetBottomRight(OriginShape), Target, grid, couleur, window);
 }
