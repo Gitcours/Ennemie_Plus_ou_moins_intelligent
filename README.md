@@ -1,7 +1,7 @@
 # Raycast
 
 l'idée initial était d'avoir un pathfinding "économique" afin de pouvoir implémenté plusieurs énnemies sans avoir à se soucier de problèmes de performances, l'idée de coupler du raycast avec du pathfinding afin de se déplacé avec pour ainsi, économiser des ressources nous est venu. 
-la première implémentation a été un simple raycast entre le centre de l'énnemie et celui du player, un premier problème est survenu, lorsque le player se trouve parallele a un mur, l'énnemie le travers a moitier si le raycast ne touche pas le mure
+la première implémentation a été un simple raycast entre le centre de l'ennemi et celui du player, un premier problème est survenu, lorsque le player se trouve parallele a un mur, l'énnemie le travers a moitier si le raycast ne touche pas le mure
 
 ![image](https://github.com/user-attachments/assets/91fb9343-9519-42e1-8558-5eef2e3db66e)
 
