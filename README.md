@@ -19,7 +19,7 @@ bien que notre idée inital fu d'implémenter un GOAP, nous avons opter pour une
 
 # Signification des differentes couleurs
 
-Vers = patrouillage
-Jaune = verification de la derniere position du joueur
-Rouge = chasse le joueur
-Blanc = fuie le joueur
+Vers = patrouillage 
+Jaune = verification de la derniere position du joueur 
+Rouge = chasse le joueur 
+Blanc = fuie le joueur 
