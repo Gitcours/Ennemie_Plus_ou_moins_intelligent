@@ -20,16 +20,20 @@ bien que notre idée inital fu d'implémenter un GOAP, nous avons opter pour une
 # Signification des differentes couleurs
 
 Vers = patrouillage
+
 ![image](https://github.com/user-attachments/assets/2cbbfb18-5054-4697-ac09-dbc0a857d418)
 
 
 Jaune = verification de la derniere position du joueur
+
 ![image](https://github.com/user-attachments/assets/6067f9f8-30f8-4122-aa9f-5e35f3e42c23)
 
 
 Rouge = chasse le joueur
+
 ![image](https://github.com/user-attachments/assets/b3b322e0-4c84-47d5-bdab-9e16935b0e80)
 
 
 Blanc = fuie le joueur
+
 ![image](https://github.com/user-attachments/assets/240b2b77-2262-4c14-af05-d48dcd040749)
